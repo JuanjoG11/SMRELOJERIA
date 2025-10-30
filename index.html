@@ -171,18 +171,16 @@
         nav.main-nav a:hover::after{ width:100%; left:0; }
 
         /* NAV Toggle (Hamburguesa) */
-        /* NAV Toggle (Hamburguesa) */
-        /* NAV Toggle (Hamburguesa) */
         .nav-toggle{
             display:none;
             background:none;
             border:none;
-            color:var(--gold-light); /* HECHO: Color dorado claro y brillante */
+            color:var(--gold-light);
             font-size:1.5rem;
             cursor:pointer;
             z-index:60;
             padding:8px;
-            text-shadow: 0 0 8px rgba(251, 230, 149, 0.7); /* AGREGADO: Sombra brillante para resaltar */
+            text-shadow: 0 0 8px rgba(251, 230, 149, 0.7);
         }
         /* ========== HERO ========== */
         .hero{
@@ -301,22 +299,8 @@
             transform:translateY(-10px);
             box-shadow:0 18px 50px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.1);
         }
-        .card .thumb{
-            width:100%;
-            height:220px; /* Más alto */
-            background:#1a1a1a;
-            border-radius:10px;
-            overflow:hidden;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:rgba(212,175,55,0.18);
-            font-weight:700;
-            font-family:'Cinzel',serif;
-            font-size:1.2rem;
-            box-shadow:inset 0 0 80px rgba(0,0,0,0.6);
-            border: 1px solid rgba(212,175,55,0.05);
-        }
+        /* (DEPRECATED) .card .thumb{ ... } se ha reemplazado por .carousel */
+        
         .card .info{
             display:flex;
             justify-content:space-between;
@@ -411,21 +395,70 @@
         .whatsapp:hover{ transform:translateY(-8px) scale(1.05) }
 
         /* =======================================================
-            2. RESPONSIVE Y NAVEGACIÓN MÓVIL (Hamburguesa)
+            2. ESTILOS CLAVE: CARRUSEL Y RESPONSIVE
             ======================================================= */
-    /* =======================================================
-           2. RESPONSIVE Y NAVEGACIÓN MÓVIL (Hamburguesa)
-           ======================================================= */
+        
+        /* CARRUSEL DENTRO DE LAS TARJETAS */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 220px; /* ALTO DEFINIDO PARA ESCRITORIO */
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .carousel .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 220px; /* ALTO IGUAL AL CONTENEDOR */
+            object-fit: cover; /* <<-- ESTA PROPIEDAD HACE QUE LLENE EL CUADRO -->> */
+            flex-shrink: 0;
+        }
+
+        /* Botones del carrusel */
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10; /* Asegura que los botones estén por encima de las imágenes */
+        }
+
+        .carousel button:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel .prev {
+            left: 8px;
+        }
+
+        .carousel .next {
+            right: 8px;
+        }
+        
+        /* RESPONSIVE */
         @media (max-width:1024px){
             .hero h2{ font-size:2.8rem }
             .hero-left{ padding:15px; }
-            .section-title h3{ font-size:2rem; }
-            section.wrap{ padding:60px 4vw; }
+            .section-title h3{ font-size:2rem }
+            section.wrap{ padding:60px 4vw }
             .ship-grid{ grid-template-columns:1fr }
-            .map-frame{ height:320px; }
+            .map-frame{ height:320px }
 
             /* NAVEGACIÓN MÓVIL */
-            .nav-toggle{ display:block; }
+            .nav-toggle{ display:block }
             nav.main-nav{
                 position:fixed;
                 top:0;
@@ -435,12 +468,11 @@
                 flex-direction:column;
                 gap:20px;
                 
-                /* CORREGIDO: Usar fondo semi-transparente (var(--glass)) para ver la X */
                 background:var(--glass); 
                 backdrop-filter: blur(15px);
                 
-                padding-top:80px; /* Ajustado para empezar debajo del header */
-                box-shadow:-5px 0 20px rgba(0,0,0,0.8); /* Sombra oscura para contraste */
+                padding-top:80px;
+                box-shadow:-5px 0 20px rgba(0,0,0,0.8); 
                 z-index:55;
             }
             nav.main-nav.is-open{
@@ -452,13 +484,23 @@
                 width:100%;
                 text-align:center;
                 
-                /* CORREGIDO: Usar borde suave y elegante */
                 border-bottom:1px solid rgba(212,175,55,0.2); 
             }
             
         }
         
-        @media (max-width:640px){
+        @media (max-width:768px){
+            .carousel {
+                height: 180px; /* ALTO DEFINIDO PARA MÓVIL */
+            }
+            .carousel img {
+                height: 180px; /* ALTO DE LA IMAGEN IGUAL AL CONTENEDOR EN MÓVIL */
+            }
+            .prod-name { font-size: 1rem; }
+            .prod-price { font-size: 1.1rem; }
+            .card { padding: 12px; }
+            .section-title h3 { font-size: 1.6rem; }
+            
             header.site-header{ padding:10px 16px }
             .hero{ padding:30px 4vw; min-height:60vh; }
             .hero h2{ font-size:2rem }
@@ -470,90 +512,9 @@
             .section-title h3{ font-size:1.8rem; }
             .section-title .muted{ font-size:0.9rem; }
             .whatsapp{ width:50px; height:50px; font-size:22px; right:16px; bottom:16px; }
-        }        
-        .thumb {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 10px 10px 0 0;
-}
-
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .3s ease;
-}
-
-.card:hover .thumb img {
-  transform: scale(1.05);
-}
-
- /* CARRUSEL DENTRO DE LAS TARJETAS */
-.carousel {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  border-radius: 12px 12px 0 0;
-}
-
-.carousel .slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
-
-.carousel img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-/* Botones del carrusel */
-.carousel button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.4);
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  padding: 5px 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.carousel button:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.carousel .prev {
-  left: 8px;
-}
-
-.carousel .next {
-  right: 8px;
-}
-@media (max-width: 768px) {
-  .carousel {
-    height: 180px;
-  }
-  .carousel img {
-    height: 180px;
-  }
-  .prod-name { font-size: 1rem; }
-  .prod-price { font-size: 1.1rem; }
-  .card { padding: 12px; }
-  .section-title h3 { font-size: 1.6rem; }
-  .hero h2 { font-size: 2rem; }
-  .hero p.lead { font-size: 0.95rem; }
-}
-
-       
-       
+        }        
+        
+        
     </style>
 </head>
 <body>
@@ -587,13 +548,13 @@
     </header>
 
     <main>
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <section class="hero" id="inicio" aria-labelledby="hero-title" style="background-image: url('hero-reloj.jpg');">
             <div class="hero-left">
                 <h2 id="hero-title">Precisión que trasciende el tiempo</h2>
                 <p class="lead">Relojes de <span class="luxury-text">lujo</span> y servicio <span class="luxury-text">profesional</span> para quienes exigen excelencia en cada detalle. Compra con seguridad y asesoría personalizada.</p>
                 <div class="cta-row">
                     <a class="btn" href="#catalogo">Ver Catálogo</a>
-                    <a class="btn outline" id="ver-ubicacion">Ver Ubicación</a>
+                    <a class="btn outline" id="ver-ubicacion" href="#ubicacion">Ver Ubicación</a>
                 </div>
             </div>
         </section>
@@ -605,8 +566,17 @@
             </div>
 
             <div class="catalog-grid" id="catalog-grid">
+                
                 <article class="card">
-                    <div class="thumb">Rolex</div>
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="rolex1.jpg" alt="Rolex - Vista 1">
+                            <img src="rolex2.jpg" alt="Rolex - Vista 2">
+                            <img src="rolex3.jpg" alt="Rolex - Vista 3">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
                     <div class="info">
                         <div>
                             <div class="prod-name">Rolex</div>
@@ -615,144 +585,148 @@
                         <div class="prod-price">$70.000</div>
                     </div>
                     <div class="actions">
-                        <button class="small btn outline" onclick="verDetalles('Richard Mille')">Detalles</button>
-                        <button class="small btn" onclick="comprarWhats('Richard Mille','$$70.000')">Comprar</button>
+                        <button class="small btn outline" onclick="verDetalles('Rolex')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('Rolex','$$70.000')">Comprar</button>
                     </div>
                 </article>
 
-                            </article>
                 <article class="card">
-  <div class="thumb carousel">
-    <div class="slides">
-      <img src="cartier2.jpg" alt="Cartier 2">
-     <img src="cartier1.jpg" alt="Cartier 1">
-      <img src="cartier3.jpg" alt="Cartier 3">
-       <img src="cartier4.jpg" alt="TecnoMarine 4">
-        <img src="cartier5.jpg" alt="TecnoMarine 5">
-        <img src="cartier6.jpg" alt="TecnoMarine 6">
-        <img src="cartier8.jpg" alt="TecnoMarine 7">
-        <img src="cartier7.jpg" alt="TecnoMarine 8">
-        <img src="cartier9.jpg" alt="TecnoMarine 9">
-        <img src="carter10.jpg" alt="TecnoMarine 10">
-        <img src="cartier11.jpg" alt="TecnoMarine 11">
-        
-    </div>
-    <button class="prev" onclick="moverSlide(this, -1)">❮</button>
-    <button class="next" onclick="moverSlide(this, 1)">❯</button>
-  </div>
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="cartier2.jpg" alt="Cartier 2">
+                            <img src="cartier1.jpg" alt="Cartier 1">
+                            <img src="cartier3.jpg" alt="Cartier 3">
+                            <img src="cartier4.jpg" alt="Cartier 4">
+                            <img src="cartier5.jpg" alt="Cartier 5">
+                            <img src="cartier6.jpg" alt="Cartier 6">
+                            <img src="cartier8.jpg" alt="Cartier 7">
+                            <img src="cartier7.jpg" alt="Cartier 8">
+                            <img src="cartier9.jpg" alt="Cartier 9">
+                            <img src="carter10.jpg" alt="Cartier 10">
+                            <img src="cartier11.jpg" alt="Cartier 11">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
 
-  <div class="info">
-    <div>
-      <div class="prod-name">Cartier</div>
-      <div class="muted" style="font-size:.9rem">Deportivo & resistente</div>
-    </div>
-    <div class="prod-price">$90.000</div>
-  </div>
+                    <div class="info">
+                        <div>
+                            <div class="prod-name">Cartier</div>
+                            <div class="muted" style="font-size:.9rem">Clásico y elegante</div>
+                        </div>
+                        <div class="prod-price">$90.000</div>
+                    </div>
 
-  <div class="actions">
-    <button class="small btn outline" onclick="verDetalles('Cartier')">Detalles</button>
-    <button class="small btn" onclick="comprarWhats('Cartiet','$90.000')">Comprar</button>
-  </div>
-</article>
+                    <div class="actions">
+                        <button class="small btn outline" onclick="verDetalles('Cartier')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('Cartier','$90.000')">Comprar</button>
+                    </div>
+                </article>
+                
                 <article class="card">
-  <div class="thumb carousel">
-    <div class="slides">
-      <img src="tecno1.jpg" alt="TecnoMarine 1">
-      <img src="tecno2.jpg" alt="TecnoMarine 2">
-      <img src="tecno3..jpg" alt="TecnoMarine 3">
-       <img src="tecno4.jpg" alt="TecnoMarine 4">
-        <img src="tecno5.jpg" alt="TecnoMarine 5">
-        <img src="tecno6.jpg" alt="TecnoMarine 6">
-        <img src="tecno7.jpg" alt="TecnoMarine 7">
-        <img src="tecno8.jpg" alt="TecnoMarine 8">
-        <img src="tecno9.jpg" alt="TecnoMarine 9">
-        <img src="tecno10.jpg" alt="TecnoMarine 10">
-        <img src="tecno11.jpg" alt="TecnoMarine 11">
-        <img src="tecno12.jpg" alt="TecnoMarine 12">
-        <img src="tecno13.jpg" alt="TecnoMarine 13">
-         <img src="tecno14.jpg" alt="TecnoMarine 11">
-    </div>
-    <button class="prev" onclick="moverSlide(this, -1)">❮</button>
-    <button class="next" onclick="moverSlide(this, 1)">❯</button>
-  </div>
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="tecno1.jpg" alt="TecnoMarine 1">
+                            <img src="tecno2.jpg" alt="TecnoMarine 2">
+                            <img src="tecno3.jpg" alt="TecnoMarine 3">
+                            <img src="tecno4.jpg" alt="TecnoMarine 4">
+                            <img src="tecno5.jpg" alt="TecnoMarine 5">
+                            <img src="tecno6.jpg" alt="TecnoMarine 6">
+                            <img src="tecno7.jpg" alt="TecnoMarine 7">
+                            <img src="tecno8.jpg" alt="TecnoMarine 8">
+                            <img src="tecno9.jpg" alt="TecnoMarine 9">
+                            <img src="tecno10.jpg" alt="TecnoMarine 10">
+                            <img src="tecno11.jpg" alt="TecnoMarine 11">
+                            <img src="tecno12.jpg" alt="TecnoMarine 12">
+                            <img src="tecno13.jpg" alt="TecnoMarine 13">
+                            <img src="tecno14.jpg" alt="TecnoMarine 14">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
 
-  <div class="info">
-    <div>
-      <div class="prod-name">TecnoMarine</div>
-      <div class="muted" style="font-size:.9rem">Deportivo & resistente</div>
-    </div>
-    <div class="prod-price">$110.000</div>
-  </div>
+                    <div class="info">
+                        <div>
+                            <div class="prod-name">TecnoMarine</div>
+                            <div class="muted" style="font-size:.9rem">Deportivo & resistente</div>
+                        </div>
+                        <div class="prod-price">$110.000</div>
+                    </div>
 
-  <div class="actions">
-    <button class="small btn outline" onclick="verDetalles('TecnoMarine')">Detalles</button>
-    <button class="small btn" onclick="comprarWhats('TecnoMarine','$70.000')">Comprar</button>
-  </div>
-</article>
+                    <div class="actions">
+                        <button class="small btn outline" onclick="verDetalles('TecnoMarine')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('TecnoMarine','$70.000')">Comprar</button>
+                    </div>
+                </article>
 
-
-
-                  <article class="card">
-  <div class="thumb carousel">
-    <div class="slides">
-      <img src="g1.jpg" alt="Cartier 2">
-     <img src="G2.jpg" alt="Cartier 1">
-      <img src="G3.jpg" alt="Cartier 3">
-       <img src="64.jpg" alt="TecnoMarine 4">
-        <img src="G5.jpg" alt="TecnoMarine 5">
-        <img src="G6.jpeg" alt="TecnoMarine 6">
-        <img src="G7.jpg" alt="TecnoMarine 7">
-      
-        
-    </div>
-    <button class="prev" onclick="moverSlide(this, -1)">❮</button>
-    <button class="next" onclick="moverSlide(this, 1)">❯</button>
-  </div>
-
-  <div class="info">
-    <div>
-      <div class="prod-name">G-SHOCK</div>
-      <div class="muted" style="font-size:.9rem">Deportivo & resistente</div>
-    </div>
-    <div class="prod-price">$80.000</div>
-  </div>
-
-  <div class="actions">
-    <button class="small btn outline" onclick="verDetalles('G-SHOCK')">Detalles</button>
-    <button class="small btn" onclick="comprarWhats('G-SHOCK','$80.000')">Comprar</button>
-  </div>
-</article>
-
-               <article class="card">
-  <div class="thumb carousel">
-    <div class="slides">
-      <img src="guess1.jpg" alt="Guess 1">
-      <img src="guess2.jpg" alt="Guess 2">
-      <img src="guess3.jpg" alt="TecnoMarine 3">
-    <img src="guess4.jpeg" alt="TecnoMarine 11">
-     <img src="guess5.jpg" alt="TecnoMarine 11">
-      <img src="guess7.jpg" alt="TecnoMarine 11">
-       <img src="guess6.jpg" alt="TecnoMarine 11">
-    </div>
-    <button class="prev" onclick="moverSlide(this, -1)">❮</button>
-    <button class="next" onclick="moverSlide(this, 1)">❯</button>
-  </div>
-
-  <div class="info">
-    <div>
-      <div class="prod-name">Guess</div>
-      <div class="muted" style="font-size:.9rem">Deportivo & resistente</div>
-    </div>
-    <div class="prod-price">$85.000</div>
-  </div>
-
-  <div class="actions">
-    <button class="small btn outline" onclick="verDetalles('TecnoMarine')">Detalles</button>
-    <button class="small btn" onclick="comprarWhats('TecnoMarine','$70.000')">Comprar</button>
-  </div>
-</article>
                 <article class="card">
-                    <div class="thumb">Tissot</div>
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="g1.jpg" alt="G-SHOCK 1">
+                            <img src="G2.jpg" alt="G-SHOCK 2">
+                            <img src="G3.jpg" alt="G-SHOCK 3">
+                            <img src="G4.jpg" alt="G-SHOCK 4">
+                            <img src="G5.jpg" alt="G-SHOCK 5">
+                            <img src="G6.jpeg" alt="G-SHOCK 6">
+                            <img src="G7.jpg" alt="G-SHOCK 7">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
+
+                    <div class="info">
+                        <div>
+                            <div class="prod-name">G-SHOCK</div>
+                            <div class="muted" style="font-size:.9rem">Máxima resistencia</div>
+                        </div>
+                        <div class="prod-price">$80.000</div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="small btn outline" onclick="verDetalles('G-SHOCK')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('G-SHOCK','$80.000')">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="guess1.jpg" alt="Guess 1">
+                            <img src="guess2.jpg" alt="Guess 2">
+                            <img src="guess3.jpg" alt="Guess 3">
+                            <img src="guess4.jpeg" alt="Guess 4">
+                            <img src="guess5.jpg" alt="Guess 5">
+                            <img src="guess7.jpg" alt="Guess 7">
+                            <img src="guess6.jpg" alt="Guess 6">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
+
+                    <div class="info">
+                        <div>
+                            <div class="prod-name">Guess</div>
+                            <div class="muted" style="font-size:.9rem">Moda y estilo</div>
+                        </div>
+                        <div class="prod-price">$85.000</div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="small btn outline" onclick="verDetalles('Guess')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('Guess','$85.000')">Comprar</button>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <div class="carousel">
+                        <div class="slides">
+                            <img src="tissot1.jpg" alt="Tissot - Vista 1">
+                            <img src="tissot2.jpg" alt="Tissot - Vista 2">
+                            <img src="tissot3.jpg" alt="Tissot - Vista 3">
+                        </div>
+                        <button class="prev" onclick="moverSlide(this, -1)">❮</button>
+                        <button class="next" onclick="moverSlide(this, 1)">❯</button>
+                    </div>
                     <div class="info">
                         <div>
                             <div class="prod-name">Tissot</div>
@@ -761,8 +735,8 @@
                         <div class="prod-price">$1.250.000</div>
                     </div>
                     <div class="actions">
-                        <button class="small btn outline" onclick="verDetalles('Invicta')">Detalles</button>
-                        <button class="small btn" onclick="comprarWhats('Invicta','$1.250.000')">Comprar</button>
+                        <button class="small btn outline" onclick="verDetalles('Tissot')">Detalles</button>
+                        <button class="small btn" onclick="comprarWhats('Tissot','$1.250.000')">Comprar</button>
                     </div>
                 </article>
             </div>
@@ -820,8 +794,8 @@
             </div>
             
             <div class="location-info">
-                <p class="muted" style="font-size:1.1rem">📍 MZ 13 CS 150, Villa Elisa (Cuba), Pereira</p>
-                <a href="https://www.google.com/maps?q=MZ%2013%20CS%20150%20Villa%20Elisa%20Cuba%20Pereira&output=embed" target="_blank" style="color:var(--gold); font-weight:600;">Abrir en Google Maps</a>
+                <p class="muted" style="font-size:1.1rem">📍 4°47'52.1"N 75°44'10.6"W</p>
+                <a href="https://www.google.com/maps/search/4%C2%B047'52.1%22N+75%C2%B044'10.6%22W" target="_blank" style="color:var(--gold); font-weight:600;">Abrir en Google Maps</a>
             </div>
             
             <div class="map-frame" style="max-width:1100px;margin:0 auto;">
@@ -830,7 +804,7 @@
                     height="100%" 
                     frameborder="0" 
                     style="border:0"
-                    src="https://www.google.com/maps?q=MZ%2013%20CS%20150%20Villa%20Elisa%20Cuba%20Pereira&output=embed" 
+                    src="https://maps.google.com/maps?q=4.797806,-75.736278&z=15&output=embed" 
                     allowfullscreen="" 
                     loading="lazy"></iframe>
             </div>
@@ -863,167 +837,203 @@
         // --------- Particle background (simple, light) ----------
         const canvas = document.getElementById('bg');
         const ctx = canvas.getContext('2d');
-        let w = canvas.width = innerWidth;
-        let h = canvas.height = innerHeight;
-        const particles = [];
-        // Menos partículas en móvil para rendimiento
-        const PARTICLE_COUNT = Math.max(25, Math.round((w*h)/20000)); 
-
-        function rand(min,max){ return Math.random()*(max-min)+min }
-
-        function Particle(){
-            this.x = Math.random()*w;
-            this.y = Math.random()*h;
-            this.r = rand(0.6,2.6);
-            this.vx = rand(-0.1,0.1);
-            this.vy = rand(-0.1,0.1);
-            this.alpha = rand(0.3,0.95);
+        let particlesArray;
+        
+        // Set canvas dimensions
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        Particle.prototype.update = function(){
-            this.x += this.vx;
-            this.y += this.vy;
-            if(this.x < -10) this.x = w + 10;
-            if(this.x > w + 10) this.x = -10;
-            if(this.y < -10) this.y = h + 10;
-            if(this.y > h + 10) this.y = -10;
+        
+        // Particle class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            // method to draw individual particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            // check particle position, check mouse position, move the particle, draw the particle
+            update() {
+                // check if particle is still within canvas
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                // move particle
+                this.x += this.directionX;
+                this.y += this.directionY;
+                // draw particle
+                this.draw();
+            }
         }
-        Particle.prototype.draw = function(){
-            ctx.beginPath();
-            ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-            ctx.fillStyle = 'rgba(212,175,55,'+this.alpha+')';
-            ctx.shadowBlur = 12; // Menos blur para optimizar
-            ctx.shadowColor = 'rgba(212,175,55,0.7)';
-            ctx.fill();
-            ctx.closePath();
-        }
+        
+        // create particle array
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 90000; // Adjusted density for mobile
+            if (window.innerWidth < 768) numberOfParticles = (canvas.height * canvas.width) / 150000;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 0.9) + 0.3; // Min size 0.3, max 1.2
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25; // Slower speed
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = 'rgba(212, 175, 55, ' + (Math.random() * 0.3 + 0.05) + ')'; // Gold with low opacity
 
-        function initParticles(){
-            particles.length = 0;
-            for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
         }
-
-        function loop(){
-            ctx.clearRect(0,0,w,h);
-            particles.forEach(p=>{ p.update(); p.draw(); });
-            requestAnimationFrame(loop);
+        
+        // animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
         }
+        
+        // Resize event handler
+        window.addEventListener('resize', function(){
+            initCanvas();
+            initParticles();
+        });
 
-        window.addEventListener('resize', ()=>{ w=canvas.width=innerWidth; h=canvas.height=innerHeight; initParticles(); });
+        // Initial setup
+        initCanvas();
         initParticles();
-        loop();
+        animate();
 
-        // --------- Intro handling: remove intro after animation ----------
-        const intro = document.getElementById('intro');
-        // ensure visible for ~2.6s then fade
-        setTimeout(()=>{
-            intro.classList.add('fade-out');
-            // remove from DOM after fade to allow interactions
-            setTimeout(()=> intro.remove(), 700);
-        }, 2400);
+        // --------- General JS & Animations ----------
+        document.addEventListener('DOMContentLoaded', function(){
+            // Intro Fade Out
+            const introElement = document.getElementById('intro');
+            if (introElement) {
+                setTimeout(() => {
+                    introElement.classList.add('fade-out');
+                }, 2000); // Start fade-out after 2 seconds
+            }
 
-        // --------- Hamburguesa Toggle ----------
-        const navToggle = document.getElementById('nav-toggle');
-        const mainNav = document.getElementById('main-nav');
+            // Mobile Nav Toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const mainNav = document.getElementById('main-nav');
+            const icon = navToggle.querySelector('i');
+            
+            navToggle.addEventListener('click', function(){
+                mainNav.classList.toggle('is-open');
+                if (mainNav.classList.contains('is-open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
 
-        navToggle.addEventListener('click', () => {
-            const isOpen = mainNav.classList.toggle('is-open');
-            // Cambiar ícono de hamburguesa a X
-            navToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-        });
-
-
-        // --------- Smooth scroll for nav links & Close Nav on Click (Mobile) ----------
-        document.querySelectorAll('.nav-link').forEach(a=>{
-            a.addEventListener('click', function(e){
-                if(this.getAttribute('href').startsWith('#')){
-                    e.preventDefault();
-                    
-                    // Cierra el menú en móvil si está abierto
-                    if(mainNav.classList.contains('is-open')){
+            // Close nav when a link is clicked
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
                         mainNav.classList.remove('is-open');
-                        navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
                     }
+                });
+            });
 
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(target){
-                        target.scrollIntoView({behavior:'smooth', block:'start'});
+            // Intersection Observer for Sections (Scroll Animation)
+            const sections = document.querySelectorAll('section.wrap');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -100px 0px', // Trigger when 100px from bottom is reached
+                threshold: 0.1
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // observer.unobserve(entry.target); // Optional: Stop observing after first visibility
                     }
-                }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
             });
+
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
 
-        // --------- Animación Reveal al Scroll (Intersection Observer) ----------
-        const sections = document.querySelectorAll('section.wrap');
-        const observerOptions = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.2 // 20% de la sección visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting){
-                    entry.target.classList.add('is-visible');
-                    // Opcional: deja de observar después de la primera revelación
-                    // observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // --------- Open WhatsApp helper (función global) ----------
-        window.openWhats = function(message){
-            const phone = '573245545339';
-            const encoded = encodeURIComponent(message);
-            const url = `https://wa.me/${phone}?text=${encoded}`;
-            window.open(url,'_blank');
+        // --------- Functions for buttons and WhatsApp ---------
+        const WHATSAPP_NUMBER = '573245545339';
+        
+        function openWhats(message) {
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
         }
 
-        // --------- Comprar por WhatsApp (función global) ----------
-        window.comprarWhats = function(name, price){
-            const msg = `Hola 👋, me interesa el *${name}* (${price}) que vi en su catálogo de S.M. Relojería. ¿Está disponible?`;
-            openWhats(msg);
+        function comprarWhats(productName, price) {
+            const message = `Hola, estoy interesado(a) en comprar el reloj *${productName}* con un precio de ${price}.`;
+            openWhats(message);
         }
 
-        // --------- Detalles (función global: abre modal o alerta) ----------
-        window.verDetalles = function(name){
-            alert(`Más detalles sobre ${name}:\n\nPor favor, contáctanos directamente por WhatsApp para recibir fotos y videos de esta pieza en stock.`); 
+        function verDetalles(productName) {
+            const message = `Hola, me gustaría recibir más detalles y fotos del reloj *${productName}*.`;
+            openWhats(message);
         }
+        
+        // --------- Carrusel JS Logic (AJUSTADO PARA MEJOR COMPATIBILIDAD) ---------
+        function moverSlide(button, direccion) {
+            // Encuentra el contenedor .carousel más cercano
+            const carousel = button.closest('.carousel');
+            if (!carousel) return;
 
-        // --------- "Ver ubicación" scroll button ----------
-        document.getElementById('ver-ubicacion').addEventListener('click', (e)=>{
-            e.preventDefault();
-            document.getElementById('ubicacion').scrollIntoView({behavior:'smooth'});
-        });
+            // Encuentra el contenedor de las diapositivas
+            const slidesContainer = carousel.querySelector('.slides');
+            const slides = slidesContainer.querySelectorAll('img');
+            const totalSlides = slides.length;
+            const slideWidth = carousel.offsetWidth; // Ancho visible del carrusel
 
-        // --------- year ----------
-        document.getElementById('year').textContent = new Date().getFullYear();
+            // Obtenemos el índice actual basándonos en la transformación
+            const currentTransform = slidesContainer.style.transform;
+            let currentX = 0;
+            if (currentTransform) {
+                const match = currentTransform.match(/translateX\(([-]?\d+(\.\d+)?)px\)/);
+                currentX = match ? parseFloat(match[1]) : 0;
+            }
+            
+            // Calculamos el índice actual. Usamos Math.round para evitar errores de coma flotante.
+            let currentIndex = Math.round(Math.abs(currentX) / slideWidth);
+            
+            let newIndex = currentIndex + direccion;
+
+            // Lógica de loop infinito
+            if (newIndex >= totalSlides) {
+                newIndex = 0; // Vuelve a la primera imagen
+            } else if (newIndex < 0) {
+                newIndex = totalSlides - 1; // Vuelve a la última imagen
+            }
+            
+            const newX = -newIndex * slideWidth;
+
+            slidesContainer.style.transform = `translateX(${newX}px)`;
+        }
+        
     </script>
-    <script>
-function moverSlide(boton, direccion) {
-  const carousel = boton.closest('.carousel');
-  const slides = carousel.querySelector('.slides');
-  const totalSlides = slides.children.length;
-  
-  // Guardar índice actual en dataset (si no existe, inicia en 0)
-  let index = parseInt(carousel.dataset.index) || 0;
-  index += direccion;
-
-  // Limitar el movimiento circular
-  if (index >= totalSlides) index = 0;
-  if (index < 0) index = totalSlides - 1;
-
-  // Actualizar desplazamiento
-  slides.style.transform = `translateX(-${index * 100}%)`;
-
-  // Guardar nuevo índice
-  carousel.dataset.index = index;
-}
-</script>
-
-
 </body>
 </html>
